@@ -7,7 +7,6 @@ This menu can be accessed with 'D' key in the 3d view.
 ### Object mode
 ![163819780-4f36e33e-708e-42d5-a28d-2b14cfe4851c](https://user-images.githubusercontent.com/13370906/163830785-afdd2435-04c8-4a55-b28f-7e276dcdda60.png)
 
-**This menu has 4 sections in object mode**
 <table>
     <thead>
         <tr>
@@ -72,7 +71,6 @@ This menu can be accessed with 'D' key in the 3d view.
 | ![image](https://user-images.githubusercontent.com/13370906/163831194-04f018ce-cb80-4b7a-8004-2e658a0eab80.png) | ![image](https://user-images.githubusercontent.com/13370906/163832179-8580cd65-ad70-4ff7-b4b4-410af2dce623.png) | ![image](https://user-images.githubusercontent.com/13370906/163832282-9a2d06a3-f0cf-47e7-ba23-f4369421c497.png) |
 
 
-**This menu has 5 sections in edit mode**
 <table>
    <thead>
       <tr>
