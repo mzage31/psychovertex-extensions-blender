@@ -1,5 +1,5 @@
 # PsychoVertexMaster
-This addon contains a set of blender tools we use at PsychoVertex.
+Handy menus and tools to work easier in blender!
 
 ## Handy menu
 This menu can be accessed with 'D' key in the 3d view.
