@@ -1,5 +1,18 @@
-# PsychoVertexMaster
 Handy menus and tools to work easier in blender!
+
+<details open>
+<summary>Table of contents</summary>
+<br>
+	<ul>
+		<li><a href="#handy-menu">Handy Menu</a></li>
+		<ul>
+			<li><a href="#object-mode">Object Mode</a></li>
+			<li><a href="#edit-mode">Edit Mode</a></li>
+		</ul>
+		<li><a href="#modifiers-menu">Modifiers Menu</a></li>
+		<li><a href="#uv-tools">UV Tools</a></li>
+	</ul>
+</details>
 
 ## Handy menu
 This menu can be accessed with 'D' key in the 3d view.
