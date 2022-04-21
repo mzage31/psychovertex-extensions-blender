@@ -274,3 +274,39 @@ Works both in object and edit mode.
    </tbody>
 </table>
 
+# UV tools
+A series of options are added to uv maps panel in object's data properties.
+
+![image](https://user-images.githubusercontent.com/13370906/164428289-a29f40da-bf43-4f54-9eca-0681d5b41f20.png)
+
+
+<table>
+   <thead>
+      <tr>
+         <th>Option</th>
+         <th>Description</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+        <td>Move Uvs</td>
+        <td>You can switch uvs index using up and down arrows at the side.</td>
+      </tr>
+      <tr>
+        <td>Add To All</td>
+        <td>You can add a new uv map with name specified in "New Name" for all selected objects.</td>
+      </tr>
+      <tr>
+        <td>Remove From All</td>
+        <td>You can remove selected uv map in the list from all selected objects that have a uv map with the same name.</td>
+      </tr>
+      <tr>
+        <td>Select In All</td>
+        <td>You can select the selected uv map in the list in all selected objects. This helps to ensure you are editing the same uv map in all selected objects.</td>
+      </tr>
+      <tr>
+        <td>Rename In All</td>
+        <td>You can rename the selected uv map in the list in all selected objects to the name specified in "New Name".</td>
+      </tr>
+   </tbody>
+</table>
