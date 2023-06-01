@@ -4,8 +4,8 @@ bl_info = {
     "author": "Mohammad Zamanian",
     "description": "A collection of addons we use in our pipeline at PsychoVertex",
     "location": "3D View > 'W' and 'D' keymaps",
-    "version": (1, 0, 8),
-    "blender": (2, 93, 0),
+    "version": (1, 2, 0),
+    "blender": (3, 0, 0),
 }
 
 import bpy
@@ -27,12 +27,16 @@ from .UvTools import (register as uvtoolsregister, unregister as uvtoolsunregist
                       UvToolsAddOperator,
                       UvToolsRemoveOperator,
                       UvToolsProperties)
-                      
 from .HandyUtils import (SetOriginToSelectionOperator,
+                        SetOriginToSelectionAndRotateOperator,
                         GetEdgeLengthOperator,
                         GetEdgesAngleOperator,
                         SnapVerticesToSurfaceOperator,
                         SelectOverlappingVerticesOperator,
+                        SelectedOriginsToActiveOperator,
+                        BTUS_Setup_Operator,
+                        BTUS_Export_Operator,
+                        BTUS_DontExport_Operator,
                         register as utilsregister,
                         unregister as utilsunregister)
 
@@ -63,10 +67,15 @@ operators = [
     UvToolsRemoveOperator,
 
     SetOriginToSelectionOperator,
+    SetOriginToSelectionAndRotateOperator,
     GetEdgeLengthOperator,
     GetEdgesAngleOperator,
     SnapVerticesToSurfaceOperator,
     SelectOverlappingVerticesOperator,
+    SelectedOriginsToActiveOperator,
+    BTUS_Setup_Operator,
+    BTUS_Export_Operator,
+    BTUS_DontExport_Operator,
     ]
 menus= [
     MZageMenuOpener,

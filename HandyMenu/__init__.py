@@ -47,6 +47,7 @@ class MZageHandyMenu(bpy.types.Menu):
                 col.separator()
                 col.label(text="Utils")
                 col.operator("mesh.set_origin_to_selection", icon="OBJECT_ORIGIN")
+                col.operator("mesh.set_origin_to_selection_and_rotate", icon="OBJECT_ORIGIN")
                 col.operator("mesh.get_edge_length", icon="DRIVER_DISTANCE")
                 col.operator("mesh.get_edges_angle", icon="DRIVER_ROTATIONAL_DIFFERENCE")
                 col.operator("mesh.snap_vertices_to_surface", icon="MOD_SHRINKWRAP")
@@ -64,6 +65,10 @@ class MZageHandyMenu(bpy.types.Menu):
                 col.label(text="Copy From Active")
                 col.operator("object.make_links_data", text="Copy Modifiers", icon="MODIFIER").type = "MODIFIERS"
                 col.operator("object.make_links_data", text="Copy Materials", icon="MATERIAL").type = "MATERIAL"
+
+                col.separator()
+                col.label(text="Copy To Active")
+                col.operator("object.selected_origins_to_active", text="Origins To Active", icon="TRANSFORM_ORIGINS")
                 
                 
                 col = row.column()
@@ -75,6 +80,11 @@ class MZageHandyMenu(bpy.types.Menu):
                 col.label(text="Import/Export")
                 col.operator("import_scene.fbx", text="Import FBX", icon="IMPORT")
                 col.operator("export_scene.fbx", text="Export FBX", icon="EXPORT")
+                col.separator()
+                col.label(text="To Unreal")
+                col.operator("object.btus_setup", text="Setup for export", icon="SHADERFX")
+                col.operator("object.btus_export", text="Set Export", icon="FAKE_USER_ON")
+                col.operator("object.btus_dontexport", text="Set Dont Export", icon="FAKE_USER_OFF")
         else:
             if bpy.context.mode == "OBJECT":
                 row = layout.row()
