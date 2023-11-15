@@ -17,7 +17,7 @@ from .UvTools import (register as uvtoolsregister, unregister as uvtoolsunregist
                       UvToolsAddOperator,
                       UvToolsRemoveOperator,
                       UvToolsProperties)
-from .HandyMenu import MZageHandyMenu
+from .HandyMenu import MZageHandyMenu, MZageHandyMenuSelectWeight, MZageHandyMenuSetWeight
 from .ChildControl import ChildToggleOperator, ChildControlPanel
 from .ModifiersMenu import *
 from .AddMaterialToSelectedFaces import AddMaterialToSelectedFacesOperator
@@ -72,6 +72,9 @@ operators = [
     BTUS_Export_Operator,
     BTUS_DontExport_Operator,
     BatchExportSelectionsAsSMOperator,
+
+    MZageHandyMenuSelectWeight,
+    MZageHandyMenuSetWeight,
 ]
 menus = [
     MZageMenuOpener,
@@ -83,7 +86,6 @@ menus = [
     MZageModifiersMenu,
 
     ChildControlPanel,
-
     MZageHandyMenu,
 ]
 classes = []
