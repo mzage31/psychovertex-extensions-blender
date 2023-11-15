@@ -80,6 +80,7 @@ class MZageHandyMenu(bpy.types.Menu):
                 col.label(text="Import/Export")
                 col.operator("import_scene.fbx", text="Import FBX", icon="IMPORT")
                 col.operator("export_scene.fbx", text="Export FBX", icon="EXPORT")
+                col.operator("object.batch_export_selections_as_sm", text="Batch Export SM_", icon="EXPORT")
                 col.separator()
                 col.label(text="To Unreal")
                 col.operator("object.btus_setup", text="Setup for export", icon="SHADERFX")
