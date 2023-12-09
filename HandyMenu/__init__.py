@@ -148,6 +148,7 @@ class MZageHandyMenu(bpy.types.Menu):
                 col.operator("object.btus_setup", text="Setup for export", icon="SHADERFX")
                 col.operator("object.btus_export", text="Set Export", icon="FAKE_USER_ON")
                 col.operator("object.btus_dontexport", text="Set Dont Export", icon="FAKE_USER_OFF")
+                col.operator("object.btus_updatepath", text="Update Path", icon="FILEBROWSER")
         else:
             if bpy.context.mode == "OBJECT":
                 row = layout.row()

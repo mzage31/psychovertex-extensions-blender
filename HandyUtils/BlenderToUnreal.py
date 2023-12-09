@@ -117,3 +117,22 @@ class BTUS_DontExport_Operator(bpy.types.Operator):
             so.ExportEnum = "dont_export"
         self.report({'INFO'}, "Export flag unset")
         return {'FINISHED'}
+
+
+class BTUS_UpdatePath_Operator(bpy.types.Operator):
+    bl_idname = "object.btus_updatepath"
+    bl_label = "Blender to Unreal Export"
+
+    def execute(self, context):
+        ctx = bpy.context
+        sos = ctx.selected_objects
+        for so in sos:
+            collection_path = []
+            current_collection = so.users_collection[0] if so.users_collection else None
+            while current_collection:
+                collection_path.insert(0, current_collection.name)
+                parent_collection_candids = [col for col in bpy.data.collections if current_collection.name in col.children]
+                current_collection = parent_collection_candids[0] if len(parent_collection_candids) > 0 else None
+            so.exportFolderName = "/".join(collection_path)
+        self.report({'INFO'}, "Updated path")
+        return {'FINISHED'}

@@ -1,4 +1,4 @@
-from .HandyUtils.BlenderToUnreal import BTUS_Setup_Operator, BTUS_Export_Operator, BTUS_DontExport_Operator
+from .HandyUtils.BlenderToUnreal import BTUS_Setup_Operator, BTUS_Export_Operator, BTUS_DontExport_Operator, BTUS_UpdatePath_Operator
 from .HandyUtils.BatchExport import BatchExportSelectionsAsSMOperator
 from .HandyUtils import (SetOriginToSelectionOperator,
                          SetOriginToSelectionAndRotateOperator,
@@ -71,6 +71,7 @@ operators = [
     BTUS_Setup_Operator,
     BTUS_Export_Operator,
     BTUS_DontExport_Operator,
+    BTUS_UpdatePath_Operator,
     BatchExportSelectionsAsSMOperator,
 
     MZageHandyMenuSelectWeight,
