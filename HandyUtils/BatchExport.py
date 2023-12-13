@@ -1,13 +1,12 @@
 import bpy
-from bpy.props import StringProperty, BoolProperty
-from bpy.types import Operator
 
-class BatchExportSelectionsAsSMOperator(Operator):
+
+class BatchExportSelectionsAsSMOperator(bpy.types.Operator):
     bl_idname = "object.batch_export_selections_as_sm"
     bl_label = "Batch Export Selections as SM_"
     bl_options = {'REGISTER'}
-    directory: StringProperty(name="Export Path", description="Where do you want to export?")
-    filter_folder: BoolProperty(default=True,options={"HIDDEN"})
+    directory: bpy.props.StringProperty(name="Export Path", description="Where do you want to export?")
+    filter_folder: bpy.props.BoolProperty(default=True, options={"HIDDEN"})
 
     def invoke(self, context, event):
         context.window_manager.fileselect_add(self)
@@ -26,3 +25,11 @@ class BatchExportSelectionsAsSMOperator(Operator):
         bpy.ops.ed.undo_push()
         bpy.ops.ed.undo()
         return {'FINISHED'}
+
+
+def register():
+    bpy.utils.register_class(BatchExportSelectionsAsSMOperator)
+
+
+def unregister():
+    bpy.utils.unregister_class(BatchExportSelectionsAsSMOperator)

@@ -1,5 +1,4 @@
 import bpy
-import bmesh
 
 WEIGHTED_NORMALS_MODIFIER_NAME = '__Weighted_Normal__'
 
@@ -183,3 +182,20 @@ class MZageHandyMenu(bpy.types.Menu):
                 col.label(text="Import/Export")
                 col.operator("import_scene.fbx", text="Import FBX", icon="IMPORT")
                 col.operator("export_scene.fbx", text="Export FBX", icon="EXPORT")
+
+
+classes = [
+    MZageHandyMenuSelectWeight,
+    MZageHandyMenuSetWeight,
+    MZageHandyMenu
+]
+
+
+def register():
+    for cls in classes:
+        bpy.utils.register_class(cls)
+
+
+def unregister():
+    for cls in classes:
+        bpy.utils.unregister_class(cls)

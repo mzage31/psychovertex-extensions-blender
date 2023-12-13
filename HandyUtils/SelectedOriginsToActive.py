@@ -1,9 +1,10 @@
 import bpy
 
+
 class SelectedOriginsToActiveOperator(bpy.types.Operator):
     bl_idname = "object.selected_origins_to_active"
     bl_label = "Selected Origins To Active"
-    
+
     def execute(self, context):
         ctx = bpy.context
         ao = ctx.active_object
@@ -15,6 +16,14 @@ class SelectedOriginsToActiveOperator(bpy.types.Operator):
             cursor.rotation_euler = ao.rotation_euler
 
         bpy.ops.object.origin_set(type="ORIGIN_CURSOR")
-        
+
         self.report({'INFO'}, f"Origins Are Set")
         return {'FINISHED'}
+
+
+def register():
+    bpy.utils.register_class(SelectedOriginsToActiveOperator)
+
+
+def unregister():
+    bpy.utils.unregister_class(SelectedOriginsToActiveOperator)

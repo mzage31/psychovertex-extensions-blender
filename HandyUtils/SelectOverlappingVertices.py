@@ -1,9 +1,5 @@
 import bpy
-from mathutils.bvhtree import BVHTree
 from mathutils.kdtree import KDTree
-from mathutils import Matrix
-from mathutils import Vector
-from math import radians, sqrt
 
 
 def build_kdtree_from_verts(verts):
@@ -20,7 +16,7 @@ def getDuplicateVertices(verts, threshold, selectAll):
 
     vtx_selection = set()
     vtx_seen = set()
-    
+
     for vtx in verts:
         vtx_group = kd.find_range(vtx.co, threshold)
         if len(vtx_group) > 1:
@@ -31,28 +27,27 @@ def getDuplicateVertices(verts, threshold, selectAll):
                     vtx_selection.add(index)
                 else:
                     vtx_seen.add(index)
-    
+
     return list(vtx_selection)
-            
+
 
 def main(ctx, threshold, selectAll):
     obj = ctx.object
-    
-    bpy.ops.object.mode_set(mode = 'EDIT')
+
+    bpy.ops.object.mode_set(mode='EDIT')
     bpy.context.tool_settings.mesh_select_mode[0] = True
     bpy.context.tool_settings.mesh_select_mode[1] = False
     bpy.context.tool_settings.mesh_select_mode[2] = False
     bpy.ops.mesh.select_all(action='DESELECT')
-    bpy.ops.object.mode_set(mode = 'OBJECT')
-
+    bpy.ops.object.mode_set(mode='OBJECT')
 
     verts = obj.data.vertices
     dupvs = getDuplicateVertices(verts, threshold, selectAll)
-    
-    bpy.ops.object.mode_set(mode = 'OBJECT')
+
+    bpy.ops.object.mode_set(mode='OBJECT')
     for d in dupvs:
         verts[d].select = True
-    bpy.ops.object.mode_set(mode = 'EDIT')
+    bpy.ops.object.mode_set(mode='EDIT')
 
 
 class SelectOverlappingVerticesOperator(bpy.types.Operator):
@@ -77,19 +72,23 @@ class SelectOverlappingVerticesOperator(bpy.types.Operator):
     @classmethod
     def poll(cls, context):
         return context.active_object is not None
-    
+
     def execute(self, context):
         main(context, self.threshold, self.selectAll)
         return {'FINISHED'}
+
 
 def add_menu_item(self, context):
     layout = self.layout
     layout.separator()
     layout.operator("mesh.select_overlapping_vertices")
 
+
 def register():
+    bpy.utils.register_class(SelectOverlappingVerticesOperator)
     bpy.types.VIEW3D_MT_edit_mesh_select_similar.append(add_menu_item)
 
 
 def unregister():
+    bpy.utils.unregister_class(SelectOverlappingVerticesOperator)
     bpy.types.VIEW3D_MT_edit_mesh_select_similar.remove(add_menu_item)

@@ -1,10 +1,12 @@
 import bpy
 
+
 class MZageModifiersControl(bpy.types.Operator):
     bl_idname = "object.mzage_modifiers_control"
     bl_label = "Control"
     bl_options = {'UNDO'}
     operation: bpy.props.StringProperty(name="Operation", default="EXPANDALL")
+
     def execute(self, context):
         ao = bpy.context.active_object
         so = bpy.context.selected_objects
@@ -34,6 +36,7 @@ class MZageModifiersArray(bpy.types.Operator):
     bl_label = "Array"
     bl_options = {'UNDO'}
     type: bpy.props.StringProperty(name="Type", default="COUNT")
+
     def execute(self, context):
         ao = bpy.context.active_object
         so = bpy.context.selected_objects
@@ -73,6 +76,7 @@ class MZageModifiersBevel(bpy.types.Operator):
     bl_idname = "object.mzage_modifiers_bevel"
     bl_label = "Bevel"
     bl_options = {'UNDO'}
+
     def execute(self, context):
         so = bpy.context.selected_objects
         for s in so:
@@ -85,6 +89,7 @@ class MZageModifiersBoolean(bpy.types.Operator):
     bl_label = "Boolean"
     bl_options = {'UNDO'}
     type: bpy.props.StringProperty(name="Type", default="JUSTADD")
+
     def execute(self, context):
         ao = bpy.context.active_object
         so = bpy.context.selected_objects
@@ -104,12 +109,14 @@ class MZageModifiersBoolean(bpy.types.Operator):
                     mod = ao.modifiers.new("Boolean", "BOOLEAN")
         return {'FINISHED'}
 
+
 class MZageModifiersCurve(bpy.types.Operator):
     bl_idname = "object.mzage_modifiers_curve"
     bl_label = "Curve"
     bl_options = {'UNDO'}
     type: bpy.props.StringProperty(name="Type", default="JUSTADD")
     position: bpy.props.BoolProperty(name="SetPosition", default=False)
+
     def execute(self, context):
         ao = bpy.context.active_object
         so = bpy.context.selected_objects
@@ -128,11 +135,13 @@ class MZageModifiersCurve(bpy.types.Operator):
                     ao.location = s.location
         return {'FINISHED'}
 
+
 class MZageModifiersMirror(bpy.types.Operator):
     bl_idname = "object.mzage_modifiers_mirror"
     bl_label = "Mirror"
     bl_options = {'UNDO'}
     axis: bpy.props.StringProperty(name="Axis", default="X")
+
     def execute(self, context):
         so = bpy.context.selected_objects
         for s in so:
@@ -142,11 +151,13 @@ class MZageModifiersMirror(bpy.types.Operator):
             mod.merge_threshold = 0.0001
         return {'FINISHED'}
 
+
 class MZageModifiersShrinkwrap(bpy.types.Operator):
     bl_idname = "object.mzage_modifiers_shrinkwrap"
     bl_label = "Shrinkwrap"
     bl_options = {'UNDO'}
     type: bpy.props.StringProperty(name="Type", default="JUSTADD")
+
     def execute(self, context):
         ao = bpy.context.active_object
         so = bpy.context.selected_objects
@@ -162,20 +173,24 @@ class MZageModifiersShrinkwrap(bpy.types.Operator):
                     mod.target = ao
         return {'FINISHED'}
 
+
 class MZageModifiersSolidify(bpy.types.Operator):
     bl_idname = "object.mzage_modifiers_solidify"
     bl_label = "Solidify"
     bl_options = {'UNDO'}
+
     def execute(self, context):
         so = bpy.context.selected_objects
         for s in so:
             mod = s.modifiers.new("Solidify", "SOLIDIFY")
         return {'FINISHED'}
 
+
 class MZageModifiersSkin(bpy.types.Operator):
     bl_idname = "object.mzage_modifiers_skin"
     bl_label = "Skin"
     bl_options = {'UNDO'}
+
     def execute(self, context):
         so = bpy.context.selected_objects
         for s in so:
@@ -183,20 +198,20 @@ class MZageModifiersSkin(bpy.types.Operator):
         return {'FINISHED'}
 
 
-
-
-
 class MZageMenuOpener(bpy.types.Operator):
     bl_label = "Menu Opener"
     bl_idname = "wm.mzage_menu_opener"
     menu: bpy.props.StringProperty(name="Menu")
+
     def execute(self, context):
         bpy.ops.wm.call_menu(name=self.menu)
         return {'FINISHED'}
 
+
 class MZageModifiersMirrorMenu(bpy.types.Menu):
     bl_label = "Mirror Menu"
     bl_idname = "OBJECT_MT_mzage_modifiers_mirror_menu"
+
     def draw(self, context):
         layout = self.layout
         row = layout.row()
@@ -215,6 +230,7 @@ class MZageModifiersMirrorMenu(bpy.types.Menu):
 class MZageModifiersArrayMenu(bpy.types.Menu):
     bl_label = "Array Menu"
     bl_idname = "OBJECT_MT_mzage_modifiers_array_menu"
+
     def draw(self, context):
         layout = self.layout
         col = layout.column()
@@ -227,24 +243,29 @@ class MZageModifiersArrayMenu(bpy.types.Menu):
 class MZageModifiersBooleanMenu(bpy.types.Menu):
     bl_label = "Boolean Menu"
     bl_idname = "OBJECT_MT_mzage_modifiers_boolean_menu"
+
     def draw(self, context):
         layout = self.layout
         col = layout.column()
         col.operator("object.mzage_modifiers_boolean", text="Use Selected", icon="MOD_BOOLEAN").type = "USESELECTED"
         col.operator("object.mzage_modifiers_boolean", text="Just Add Boolean", icon="MODIFIER_ON").type = "JUSTADD"
 
+
 class MZageModifiersShrinkwrapMenu(bpy.types.Menu):
     bl_label = "Shrinkwrap Menu"
     bl_idname = "OBJECT_MT_mzage_modifiers_shrinkwrap_menu"
+
     def draw(self, context):
         layout = self.layout
         col = layout.column()
         col.operator("object.mzage_modifiers_shrinkwrap", text="Use Selected", icon="MOD_SHRINKWRAP").type = "USESELECTED"
         col.operator("object.mzage_modifiers_shrinkwrap", text="Just Add Shrinkwrap", icon="MODIFIER_ON").type = "JUSTADD"
 
+
 class MZageModifiersCurveMenu(bpy.types.Menu):
     bl_label = "Curve Menu"
     bl_idname = "OBJECT_MT_mzage_modifiers_curve_menu"
+
     def draw(self, context):
         layout = self.layout
         col = layout.column()
@@ -256,9 +277,11 @@ class MZageModifiersCurveMenu(bpy.types.Menu):
         op.position = True
         col.operator("object.mzage_modifiers_curve", text="Just Add Curve", icon="MODIFIER_ON").type = "JUSTADD"
 
+
 class MZageModifiersMenu(bpy.types.Menu):
     bl_label = "Modifiers Menu"
     bl_idname = "OBJECT_MT_mzage_modifiers_menu"
+
     def draw(self, context):
         layout = self.layout
         row = layout.row()
@@ -272,7 +295,7 @@ class MZageModifiersMenu(bpy.types.Menu):
         col.operator("object.mzage_modifiers_skin", text="Skin", icon="MOD_SKIN")
         col.operator("wm.mzage_menu_opener", text="Shrinkwrap", icon="MOD_SHRINKWRAP").menu = MZageModifiersShrinkwrapMenu.bl_idname
         col.operator("wm.mzage_menu_opener", text="Curve", icon="MOD_CURVE").menu = MZageModifiersCurveMenu.bl_idname
-        
+
         col = row.column()
         col.operator("object.mzage_modifiers_control", text="ExpandAll", icon="COLLAPSEMENU").operation = "EXPANDALL"
         col.operator("object.mzage_modifiers_control", text="CollapseAll", icon="COLLAPSEMENU").operation = "COLLAPSEALL"
@@ -280,3 +303,33 @@ class MZageModifiersMenu(bpy.types.Menu):
         col.operator("object.mzage_modifiers_control", text="ApplyAll", icon="IMPORT").operation = "APPLYALL"
         col.operator("object.mzage_modifiers_control", text="RemoveAll", icon="X").operation = "REMOVEALL"
 
+
+classes = [
+    MZageModifiersControl,
+    MZageModifiersArray,
+    MZageModifiersBevel,
+    MZageModifiersBoolean,
+    MZageModifiersCurve,
+    MZageModifiersMirror,
+    MZageModifiersShrinkwrap,
+    MZageModifiersSolidify,
+    MZageModifiersSkin,
+
+    MZageMenuOpener,
+    MZageModifiersMirrorMenu,
+    MZageModifiersArrayMenu,
+    MZageModifiersBooleanMenu,
+    MZageModifiersShrinkwrapMenu,
+    MZageModifiersCurveMenu,
+    MZageModifiersMenu
+]
+
+
+def register():
+    for cls in classes:
+        bpy.utils.register_class(cls)
+
+
+def unregister():
+    for cls in classes:
+        bpy.utils.unregister_class(cls)

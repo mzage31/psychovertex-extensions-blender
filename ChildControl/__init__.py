@@ -1,5 +1,5 @@
 import bpy
-from collections import Counter
+
 
 def all_children(o):
     children = [o]
@@ -7,12 +7,14 @@ def all_children(o):
         children.extend(all_children(child))
     return children
 
+
 def parent_collections(collection, parents):
-  for parent_collection in bpy.data.collections:
-    if collection.name in parent_collection.children.keys():
-      parents.append(parent_collection)
-      parent_collections(parent_collection, parents)
-      return
+    for parent_collection in bpy.data.collections:
+        if collection.name in parent_collection.children.keys():
+            parents.append(parent_collection)
+            parent_collections(parent_collection, parents)
+            return
+
 
 def hide_select(o):
     collections = [o.users_collection[0]]
@@ -21,6 +23,7 @@ def hide_select(o):
         if col.hide_select:
             return True
     return o.hide_select
+
 
 class ChildToggleOperator(bpy.types.Operator):
     bl_idname = "object.child_control"
@@ -54,6 +57,7 @@ class ChildToggleOperator(bpy.types.Operator):
             context.view_layer.objects.active = ao
         return {'FINISHED'}
 
+
 class ChildControlPanel(bpy.types.Panel):
     """Creates a Panel in the scene context of the properties editor"""
     bl_label = "Child Control"
@@ -63,17 +67,17 @@ class ChildControlPanel(bpy.types.Panel):
 
     def draw(self, context):
         layout = self.layout
-        scene = context.scene
-        all = bpy.data.objects
+        # scene = context.scene
+        # all = bpy.data.objects
         selected = bpy.context.selected_objects
-        
+
         data = {}
         for s in selected:
             childCount = 0
             for child in s.children:
                 if hide_select(child):
                     continue
-                childCount+=1
+                childCount += 1
             if childCount > 0:
                 groups = {}
                 for child in s.children:
@@ -85,9 +89,9 @@ class ChildControlPanel(bpy.types.Panel):
                     else:
                         groups[group] = [child]
                 data[s] = groups
-        
+
         col = layout.column()
-        for d in data:
+        for d in data.itmes():
             for group in data[d].copy():
                 if len(data[d][group]) > 1:
                     continue
@@ -97,9 +101,9 @@ class ChildControlPanel(bpy.types.Panel):
                 else:
                     groups["Other"] = [obj]
                 data[d].pop(group)
-        
+
         col = layout.column()
-        for d in data:
+        for d in data.items():
             col.label(text=f"{d.name}'s Children:")
             for group in data[d]:
                 box = col.box()
@@ -110,7 +114,7 @@ class ChildControlPanel(bpy.types.Panel):
                     c = row.column(align=True)
                     c.enabled = False
                     c.prop(child, "hide_viewport", text="")
-                    
+
                     btn = row.operator("object.child_control", text=n)
                     btn.type = "TOGGLE"
                     btn.target = n
@@ -118,9 +122,25 @@ class ChildControlPanel(bpy.types.Panel):
                     btn = row.operator("object.child_control", text="", icon="GREASEPENCIL")
                     btn.type = "RENAME"
                     btn.target = n
-                    
+
                     c = row.column(align=True)
                     c.enabled = not bpy.data.objects[n].hide_viewport
                     btn = c.operator("object.child_control", text="", icon="RESTRICT_SELECT_OFF" if c.enabled else "RESTRICT_SELECT_ON")
                     btn.type = "SELECT"
                     btn.target = n
+
+
+classes = [
+    ChildToggleOperator,
+    ChildControlPanel
+]
+
+
+def register():
+    for cls in classes:
+        bpy.utils.register_class(cls)
+
+
+def unregister():
+    for cls in classes:
+        bpy.utils.unregister_class(cls)

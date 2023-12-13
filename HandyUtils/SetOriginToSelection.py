@@ -1,5 +1,6 @@
 import bpy
 
+
 class SetOriginToSelectionOperator(bpy.types.Operator):
     bl_idname = "mesh.set_origin_to_selection"
     bl_label = "Set Origin to Selection"
@@ -20,3 +21,11 @@ class SetOriginToSelectionOperator(bpy.types.Operator):
         bpy.ops.object.editmode_toggle()
         cursor.location = curloc
         return {'FINISHED'}
+
+
+def register():
+    bpy.utils.register_class(SetOriginToSelectionOperator)
+
+
+def unregister():
+    bpy.utils.unregister_class(SetOriginToSelectionOperator)

@@ -1,5 +1,6 @@
 import bpy
 
+
 class SetOriginToSelectionAndRotateOperator(bpy.types.Operator):
     bl_idname = "mesh.set_origin_to_selection_and_rotate"
     bl_label = "Set Origin to Selection And Rotate"
@@ -27,4 +28,11 @@ class SetOriginToSelectionAndRotateOperator(bpy.types.Operator):
         bpy.ops.object.mode_set(mode='EDIT')
         ao.rotation_mode = "XYZ"
         return {'FINISHED'}
-    
+
+
+def register():
+    bpy.utils.register_class(SetOriginToSelectionAndRotateOperator)
+
+
+def unregister():
+    bpy.utils.unregister_class(SetOriginToSelectionAndRotateOperator)

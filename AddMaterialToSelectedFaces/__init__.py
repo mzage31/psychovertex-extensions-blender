@@ -1,10 +1,11 @@
 import bpy
 
+
 class AddMaterialToSelectedFacesOperator(bpy.types.Operator):
     bl_idname = "object.add_mat_sel_faces"
     bl_label = "Add Material to Selected Faces"
     bl_options = {'REGISTER', 'UNDO'}
-    
+
     def execute(self, context):
         ob = bpy.context.active_object
         mesh = ob.data
@@ -18,3 +19,11 @@ class AddMaterialToSelectedFacesOperator(bpy.types.Operator):
                 poly.material_index = mat_len
         bpy.ops.object.mode_set(mode='EDIT')
         return {'FINISHED'}
+
+
+def register():
+    bpy.utils.register_class(AddMaterialToSelectedFacesOperator)
+
+
+def unregister():
+    bpy.utils.unregister_class(AddMaterialToSelectedFacesOperator)

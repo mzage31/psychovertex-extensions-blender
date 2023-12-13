@@ -1,18 +1,33 @@
 import bpy
-from .SetOriginToSelection import SetOriginToSelectionOperator
-from .SetOriginToSelectionAndRotate import SetOriginToSelectionAndRotateOperator
-from .GetEdgeLength import GetEdgeLengthOperator
-from .SnapVerticesToSurface import SnapVerticesToSurfaceOperator, register as r1, unregister as u1
-from .SelectOverlappingVertices import SelectOverlappingVerticesOperator, register as r2, unregister as u2
-from .GetEdgesAngle import GetEdgesAngleOperator
-from .SelectedOriginsToActive import SelectedOriginsToActiveOperator
+from . import BatchExport
+from . import BlenderToUnreal
+from . import GetEdgeLength
+from . import GetEdgesAngle
+from . import SelectedOriginsToActive
+from . import SelectOverlappingVertices
+from . import SetOriginToSelection
+from . import SetOriginToSelectionAndRotate
+from . import SnapVerticesToSurface
+
 
 def register():
-    r1()
-    r2()
+    BatchExport.register()
+    BlenderToUnreal.register()
+    GetEdgeLength.register()
+    GetEdgesAngle.register()
+    SelectedOriginsToActive.register()
+    SelectOverlappingVertices.register()
+    SetOriginToSelection.register()
+    SetOriginToSelectionAndRotate.register()
+    SnapVerticesToSurface.register()
 
 def unregister():
-    u1()
-    u2()
-    
-    
+    BatchExport.unregister()
+    BlenderToUnreal.unregister()
+    GetEdgeLength.unregister()
+    GetEdgesAngle.unregister()
+    SelectedOriginsToActive.unregister()
+    SelectOverlappingVertices.unregister()
+    SetOriginToSelection.unregister()
+    SetOriginToSelectionAndRotate.unregister()
+    SnapVerticesToSurface.unregister()

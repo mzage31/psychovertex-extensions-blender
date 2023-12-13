@@ -136,3 +136,21 @@ class BTUS_UpdatePath_Operator(bpy.types.Operator):
             so.exportFolderName = "/".join(collection_path)
         self.report({'INFO'}, "Updated path")
         return {'FINISHED'}
+
+
+classes = [
+    BTUS_DontExport_Operator,
+    BTUS_Export_Operator,
+    BTUS_Setup_Operator,
+    BTUS_UpdatePath_Operator,
+]
+
+
+def register():
+    for cls in classes:
+        bpy.utils.register_class(cls)
+
+
+def unregister():
+    for cls in classes:
+        bpy.utils.unregister_class(cls)

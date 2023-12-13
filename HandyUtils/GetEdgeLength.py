@@ -4,21 +4,23 @@ from bmesh.types import BMEdge
 
 PRECISION = 5
 
+
 def getUnitsInfo():
     scale = bpy.context.scene.unit_settings.scale_length
     unit_system = bpy.context.scene.unit_settings.system
     separate_units = bpy.context.scene.unit_settings.use_separate
     if unit_system == 'METRIC':
         scale_steps = ((1000, 'km', "KILOMETERS"), (1, 'm', "METERS"), (1 / 100, 'cm', "CENTIMETERS"),
-                        (1 / 1000, 'mm', "MILIMETERS"), (1 / 1000000, '\u00b5m', "MICROMETERS"))
+                       (1 / 1000, 'mm', "MILIMETERS"), (1 / 1000000, '\u00b5m', "MICROMETERS"))
     elif unit_system == 'IMPERIAL':
         scale_steps = ((5280, 'mi', "MILES"), (1, '\'', "FEET"),
-                        (1 / 12, '"', "INCHES"), (1 / 12000, 'thou', "THOU"))
-        scale /= 0.3048	# BU to feet
+                       (1 / 12, '"', "INCHES"), (1 / 12000, 'thou', "THOU"))
+        scale /= 0.3048  # BU to feet
     else:
         scale_steps = ((1, ' BU'),)
         separate_units = False
     return (scale, scale_steps, separate_units)
+
 
 def convertDistance(val):
     units_info = getUnitsInfo()
@@ -34,7 +36,7 @@ def convertDistance(val):
         idx += 1
     if not found:
         idx = 1
-        
+
     factor, suffix, id = scale_steps[idx]
     sval /= factor
     if not separate_units or idx == len(scale_steps) - 1:
@@ -54,10 +56,11 @@ def convertDistance(val):
             idx += 1
     return dval
 
+
 class GetEdgeLengthOperator(bpy.types.Operator):
     bl_idname = "mesh.get_edge_length"
     bl_label = "Get Edge Length"
-    
+
     def execute(self, context):
         ao = bpy.context.active_object
         aobm = bmesh.from_edit_mesh(ao.data)
@@ -73,10 +76,18 @@ class GetEdgeLengthOperator(bpy.types.Operator):
         selected_length = 0
         for e in se:
             selected_length += e.calc_length()
-        
+
         acl = ""
         if ae != None:
             acl = f"Active: {convertDistance(ae.calc_length())} | "
         self.report({'INFO'}, f"{acl}Total: {convertDistance(selected_length)}")
-        
+
         return {'FINISHED'}
+
+
+def register():
+    bpy.utils.register_class(GetEdgeLengthOperator)
+
+
+def unregister():
+    bpy.utils.unregister_class(GetEdgeLengthOperator)
