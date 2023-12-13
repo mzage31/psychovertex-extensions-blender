@@ -4,6 +4,26 @@ import bmesh
 WEIGHTED_NORMALS_MODIFIER_NAME = '__Weighted_Normal__'
 
 
+def is_class_registered(class_type):
+    try:
+        bpy.utils.register_class(class_type)
+    except Exception as e:
+        if "already registered" in str(e):
+            return True
+    return False
+
+
+def panel_exists(bl_idname):
+    for panel_cls in bpy.types.Panel.__subclasses__():
+        if not hasattr(panel_cls, "bl_idname"):
+            continue
+        if panel_cls.bl_idname != bl_idname:
+            continue
+        if is_class_registered(panel_cls):
+            return True
+    return False
+
+
 class MZageHandyMenuSelectWeight(bpy.types.Operator):
     bl_idname = "mesh.mzage_select_weight"
     bl_label = "Select Weight"
@@ -35,7 +55,7 @@ class MZageHandyMenuSetWeight(bpy.types.Operator):
                 mesh = so.data
                 sharpness = [edge.use_edge_sharp for edge in mesh.edges]
                 context.view_layer.objects.active = so
-                bpy.ops.object.shade_smooth(use_auto_smooth = True)
+                bpy.ops.object.shade_smooth(use_auto_smooth=True)
                 bpy.ops.mesh.customdata_custom_splitnormals_add()
                 for i, edge in enumerate(mesh.edges):
                     edge.use_edge_sharp = sharpness[i]
@@ -123,6 +143,8 @@ class MZageHandyMenu(bpy.types.Menu):
                     col.prop(ao, "display_type", text="", icon="NODE_MATERIAL")
                     col.prop(ao.data, "use_auto_smooth", icon="MOD_SMOOTH")
                 col.operator("object.create_empty_parent", icon="EMPTY_DATA")
+                if panel_exists("DATA_PT_PsychoHistory_KM"):
+                    col.operator("wm.call_panel", text="Object History", icon="LOOP_BACK").name = "DATA_PT_PsychoHistory_KM"
 
                 col.separator()
                 col.label(text="Copy From Active")
