@@ -11,7 +11,6 @@ bl_info = {
     "name": "PsychoVertex Pipeline Addons",
     "category": "3D View",
     "author": "Mohammad Zamanian",
-    "description": "A collection of addons we use in our pipeline at PsychoVertex",
     "location": "3D View > 'W' and 'D' keymaps",
     "version": (1, 2, 1),
     "blender": (3, 0, 0),
